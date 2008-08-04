@@ -1,0 +1,3 @@
+[submodule "rubinius"]
+	path = rubinius
+	url = git://github.com/evanphx/rubinius.git
