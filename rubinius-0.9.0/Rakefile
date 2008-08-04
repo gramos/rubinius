@@ -1,0 +1,27 @@
+require 'rake'
+
+INSTALL_DIR = 'debian/rubinius'
+RBX_DIR = '../rubinius'
+
+task :default => 'clean'
+
+desc "Cargo los datos de acuerdo al env"
+
+task :copy_libs do
+  puts 'holaaaaaaaaaa'
+end
+
+task :clean do
+  system 'rm -rf rubinius/usr/*'
+end
+
+task :create_folders do
+  folders = %w(usr/lib usr/bin)
+  folders.each{ |f| system "mkdir -p #{INSTALL_DIR}/#{f}" }
+end
+
+task :install => :create_folders do
+  system "cp -r #{RBX_DIR}/lib #{INSTALL_DIR}/usr/lib"
+  system "cp -r #{RBX_DIR}/shotgun/dev-tramp  #{INSTALL_DIR}/usr/bin/rbx"
+  system "cp -r #{RBX_DIR}/shotgun/lib/librubinius-0.9.0.so #{INSTALL_DIR}/usr/lib/"
+end
