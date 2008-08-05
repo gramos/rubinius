@@ -4,7 +4,7 @@ Priority: extra
 Maintainer: Gaston Ramos <ramos.gaston@gmail.com>
 Build-Depends: debhelper (>= 7)
 Standards-Version: 3.7.3
-Homepage: <http://rubini.us/>
+Homepage: http://rubini.us/
 
 Package: rubinius
 Architecture: any

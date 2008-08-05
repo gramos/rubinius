@@ -1,2 +1,11 @@
 rubinius-0.9.0/debian/rubinius
 rubinius-0.9.0/*-stamp
+rubinius-0.9.0.tar.gz
+rubinius-0.9.0/debian/files
+rubinius-0.9.0/debian/rubinius.debhelper.log
+rubinius-0.9.0/debian/rubinius.substvars
+rubinius_0.9.0-1.diff.gz
+rubinius_0.9.0-1.dsc
+rubinius_0.9.0-1_i386.changes
+rubinius_0.9.0-1_i386.deb
+rubinius_0.9.0.orig.tar.gz
