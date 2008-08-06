@@ -1,28 +1,33 @@
 require 'rake'
-
-INSTALL_DIR = 'debian/rubinius'
-RBX_DIR = '../rubinius'
-PACKAGE_VERSION = '0.9.0'
+require 'config'
 
 task :default => 'clean'
 
 desc "Cargo los datos de acuerdo al env"
-
 task :copy_libs do
-  system "cp -r #{RBX_DIR}/lib/* #{INSTALL_DIR}/usr/lib/rubinius/#{PACKAGE_VERSION}"
-  system "cp -r #{RBX_DIR}/shotgun/dev-tramp  #{INSTALL_DIR}/usr/bin/rbx"
-  system "cp -r #{RBX_DIR}/shotgun/lib/librubinius-0.9.0.so #{INSTALL_DIR}/usr/lib/"
+  system "cd ../rubinius && PREFIX=#{INSTALL_DIR} rake build"
+  system "cd ../rubinius && PREFIX=#{INSTALL_DIR} rake install"
 end
 
+desc "Remove files rubinius/*"
 task :clean do
-  system 'rm -rf rubinius/usr/*'
+  system 'rm -rf #{INSTALL_DIR}/usr/*'
+  system 'cd ../rubinius && rake clean:all'
 end
 
+desc "create required install folders"
 task :create_folders do
-  folders = %w(usr/lib usr/bin) + ["usr/lib/rubinius/#{PACKAGE_VERSION}"]
-  folders.each{ |f| system "mkdir -p #{INSTALL_DIR}/#{f}" }
+  folders = ['lib', CONFIG_CODEPATH]
+  folders.each{ |f| system "mkdir -p #{INSTALL_DIR}/#{CONFIG_PREFIX}/#{f}" }
+  system "mkdir -p  #{INSTALL_DIR}/#{BIN_DIR}"
 end
 
-task :install => [:create_folders, :copy_libs] do
+desc "Install rubinius"
+task :install => [:clean, :copy_libs] do ; end
 
+desc "Publish package"
+task :publish do
+  puts "=> uploading to #{USER}@#{SERVER}:#{UPLOAD_DIR} ..."
+  system "scp ../#{DEB_FILE} #{USER}@#{SERVER}:#{UPLOAD_DIR}"
 end
+

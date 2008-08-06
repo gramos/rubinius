@@ -8,7 +8,7 @@ Homepage: http://rubini.us/
 
 Package: rubinius
 Architecture: any
-Depends: libc6, libpthread-stubs0
+Depends: libc6 (>= 2.4), zlib1g
 Description:  Rubinius is a project to develop the next generation virtual machine for the Ruby programming language.
  Rubinius draws on the best virtual machine research and technology of the past 30 years and incorporates the newest research in dynamic language implementations. Rubinius implements the core libraries in Ruby, providing a system that is much more accessible, easier to develop and to extend.
  The Rubinius compiler generates bytecode that you can distribute in easy-to-install packages similar to jar files. Other measures to protect intellectual property can be easily added.
