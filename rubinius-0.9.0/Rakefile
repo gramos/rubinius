@@ -3,27 +3,17 @@ require 'config'
 
 task :default => 'clean'
 
-desc "Cargo los datos de acuerdo al env"
-task :copy_libs do
-  system "cd ../rubinius && PREFIX=#{INSTALL_DIR} rake build"
-  system "cd ../rubinius && PREFIX=#{INSTALL_DIR} rake install"
-end
-
 desc "Remove files rubinius/*"
 task :clean do
-  system 'rm -rf #{INSTALL_DIR}/usr/*'
+  system 'rm -rf #{INSTALL_DIR}/*'
   system 'cd ../rubinius && rake clean:all'
 end
 
-desc "create required install folders"
-task :create_folders do
-  folders = ['lib', CONFIG_CODEPATH]
-  folders.each{ |f| system "mkdir -p #{INSTALL_DIR}/#{CONFIG_PREFIX}/#{f}" }
-  system "mkdir -p  #{INSTALL_DIR}/#{BIN_DIR}"
+desc "Install rubinius for debian package"
+task :install => :clean do
+  system "cd ../rubinius && PREFIX=#{INSTALL_DIR} rake build"
+  system "cd ../rubinius && PREFIX=#{INSTALL_DIR} rake install"
 end
-
-desc "Install rubinius"
-task :install => [:clean, :copy_libs] do ; end
 
 desc "Publish package"
 task :publish do
